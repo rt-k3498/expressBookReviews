@@ -12,7 +12,7 @@ app.use("/customer",session({secret:"fingerprint_customer",resave: true, saveUni
 
 app.use("/customer/auth/*", function auth(req,res,next){
    if (req.session.authenticated){
-    let token = req.session.authenticated["access_token"]
+    let token = req.session.authenticated.token
     jwt.verify(token,"secret_key",(err,payload)=>{
         if (!err){
             req.payload = payload
@@ -28,7 +28,7 @@ app.use("/customer/auth/*", function auth(req,res,next){
        }
 });
  
-const PORT =5000;
+const PORT =8000;
 
 app.use("/customer", customer_routes);
 app.use("/", genl_routes);
